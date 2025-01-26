@@ -1,0 +1,47 @@
+import random
+import nltk
+import spacy
+
+# Download NLTK's punkt tokenizer if not already done
+nltk.download("punkt")
+
+#oad spaCy's English model
+nlp = spacy.load("en_core_web_sm")
+L
+# Sample responses
+responses = {
+    "greeting": ["Hello! How can I assist you today?", "hey what's in your mind","How can i help you"],
+    "goodbye": ["Goodbye! Have a great day!", "Bye! Take care!", "See you later!"],
+    "default": ["I'm sorry, I didn't understand that.", "Can you rephrase that?", "I'm here to help, but I need more details."]
+}
+
+# Helper function to classify user input
+def classify_input(user_input):
+    user_input = user_input.lower()
+    if any(greet in user_input for greet in ["hello","hi","hey"]):
+        return "greeting"
+    elif any(bye in user_input for bye in ["bye", "goodbye", "see you"]):
+        return "goodbye"
+    return "default"
+
+# Tokenization and processing
+def process_input(user_input):
+    doc = nlp(user_input)
+    tokens = [token.text for token in doc]
+    return tokens
+
+# Chatbot function
+def chatbot():
+    print("Chatbot: Hello! I am a basic chatbot. Type 'bye' to exit.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "bye":
+            print("Chatbot: Goodbye! Have a great day!")
+            break
+        intent = classify_input(user_input)
+        response = random.choice(responses[intent])
+        print(f"Chatbot: {response}")
+
+# Run the chatbot
+if __name__ == "__main__":
+    chatbot()
