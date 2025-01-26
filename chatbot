@@ -7,7 +7,7 @@ nltk.download("punkt")
 
 #oad spaCy's English model
 nlp = spacy.load("en_core_web_sm")
-L
+
 # Sample responses
 responses = {
     "greeting": ["Hello! How can I assist you today?", "hey what's in your mind","How can i help you"],
